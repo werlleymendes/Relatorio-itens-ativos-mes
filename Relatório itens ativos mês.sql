@@ -3,7 +3,10 @@ SELECT COUNT(DISTINCT a.seqproduto) "ITENS CADASTRADOS",
                FROM consinco.mrl_produtoempresa b
                where b.nroempresa = 1 AND
                      b.estqloja > 0) "ITENS EM ESTOQUE" ,
-                      
+        (SELECT COUNT (DISTINCT c.seqproduto)
+               FROM consinco.mrl_produtoempresa c
+               where c.nroempresa = 1 AND
+                     TRUNC(c.dtaultvenda) >= '01-jul-2025' ) "ITENS VENDIDOS"        
        FROM consinco.mrl_prodempseg a
 WHERE a.nroempresa = 1 AND
       a.statusvenda = 'A' AND
@@ -15,4 +18,7 @@ ORDER BY 1;
 
 
 
-SELECT * FROM consinco.mrl_prodempseg a 
+SELECT * FROM consinco.mrl_produtoempresa a
+
+SELECT * FROM consinco.MAXV_ABCDISTRIBBASE a
+
